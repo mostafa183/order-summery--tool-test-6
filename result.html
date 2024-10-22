@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتيجة الطلب</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>نتيجة الطلب</h1>
+        </header>
+
+        <div id="result" class="result-row">
+            <!-- Form data will be injected here -->
+        </div>
+
+        <button onclick="window.print()">طباعة الصفحة</button>
+    </div>
+
+    <script>
+        // Retrieve data from localStorage
+        const formData = JSON.parse(localStorage.getItem('formData'));
+
+        if (formData) {
+            // Inject data into the result div
+            document.getElementById('result').innerHTML = `
+                <h2>معلومات الشركة</h2>
+                <div class="result-row">
+                    <div class="result-field half-width"><strong>اسم الشركة:</strong> ${formData.companyName}</div>
+                    <div class="result-field half-width"><strong>البريد الإلكتروني:</strong> ${formData.companyEmail}</div>
+                    <div class="result-field third-width"><strong>العنوان:</strong> ${formData.address}</div>
+                    <div class="result-field third-width"><strong>المدينة:</strong> ${formData.city}</div>
+                    <div class="result-field third-width"><strong>الرمز البريدي:</strong> ${formData.zipCode}</div>
+                    <div class="result-field half-width"><strong>البلد:</strong> ${formData.country}</div>
+                    <div class="result-field half-width"><strong>الولاية/المحافظة:</strong> ${formData.state}</div>
+                </div>
+
+                <h2>معلومات المورد</h2>
+                <div class="result-row">
+                    <div class="result-field half-width"><strong>اسم المورد:</strong> ${formData.vendorName}</div>
+                    <div class="result-field half-width"><strong>البريد الإلكتروني:</strong> ${formData.vendorEmail}</div>
+                    <div class="result-field half-width"><strong>رقم الهاتف:</strong> ${formData.vendorPhone}</div>
+                    <div class="result-field full-width"><strong>العنوان:</strong> ${formData.vendorAddress}</div>
+                </div>
+
+                <h2>معلومات أمر الشراء</h2>
+                <div class="result-row">
+                    <div class="result-field third-width"><strong>رقم أمر الشراء:</strong> ${formData.purchaseOrderNumber}</div>
+                    <div class="result-field third-width"><strong>تاريخ أمر الشراء:</strong> ${formData.purchaseOrderDate}</div>
+                    <div class="result-field third-width"><strong>تاريخ التسليم:</strong> ${formData.deliveryDate}</div>
+                    <div class="result-field half-width"><strong>طريقة الشحن:</strong> ${formData.shippingMethod}</div>
+                    <div class="result-field half-width"><strong>شروط الشحن:</strong> ${formData.shippingTerms}</div>
+                </div>
+
+                <h2>الحساب</h2>
+                <div class="result-row">
+                    <div class="result-field quarter-width"><strong>نسبة الضريبة:</strong> ${formData.taxRate}%</div>
+                    <div class="result-field quarter-width"><strong>المجموع الفرعي:</strong> ${formData.subtotal} جنيه</div>
+                    <div class="result-field quarter-width"><strong>الضريبة:</strong> ${formData.tax} جنيه</div>
+                    <div class="result-field quarter-width"><strong>الإجمالي:</strong> ${formData.total} جنيه</div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
